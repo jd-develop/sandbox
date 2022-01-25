@@ -116,3 +116,4 @@ dmypy.json
 # PyCharm .idea/ and VScode
 .idea/
 .vscode/
+python/letters_sequences/file.txt
