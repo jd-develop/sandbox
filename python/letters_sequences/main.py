@@ -7,9 +7,6 @@ import os
 
 
 def format_correctly(str_: str):
-    str_ = str_.lower()
-    str_ = unicodedata.normalize('NFD', str_).encode('ascii', 'ignore').decode("utf-8")  # delete accents
-    str_ = str_.translate(str.maketrans('', '', string.punctuation))  # delete ponctuation
     return str(str_).replace(" ", "\n").splitlines()
 
 
