@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding:utf-8
-# Enter an int, you have the French transcription!
+# Enter a number, you have the French transcription!
 
 chiffres = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze",
             "treize", "quatorze", "quinze", "seize"]
@@ -33,6 +33,7 @@ def int_to_french(nombre, do_not_print_0=False):
     if nombre.startswith("-"):
         nombre = nombre[1:]
         result += "moins "
+
     if len(nombre) == 1:
         if nombre == "0" and do_not_print_0:
             return ""
@@ -40,7 +41,8 @@ def int_to_french(nombre, do_not_print_0=False):
             return chiffres[int(nombre)]
         else:
             return result + chiffres[int(nombre)]
-    if len(nombre) == 2:
+
+    elif len(nombre) == 2:
         if nombre[0] == "0":
             if nombre[1] == "0":
                 return chiffres[int(nombre[1])]
@@ -68,7 +70,8 @@ def int_to_french(nombre, do_not_print_0=False):
             else:
                 result += "-" + int_to_french(int(nombre[1]))
             return result
-    if len(nombre) == 3:
+
+    elif len(nombre) == 3:
         if nombre[0] == "1":
             if nombre[1] == "0" and nombre[2] == "0":
                 return result + "cent"
@@ -83,6 +86,7 @@ def int_to_french(nombre, do_not_print_0=False):
                 return result + centaine + "cent " + dizaine_et_unite
             else:
                 return result + centaine + "cents"
+
     else:
         result_list = []  # do not forget to add result at the end ("moins")
         if len(nombre) % 3 == 1:  # 1 digit then lot of 3-digits groups
@@ -142,6 +146,7 @@ print(int_to_french(1_274_625))
 print(int_to_french(23_274_625_000_245_628_000))
 print(int_to_french(3_274_000_000_245_628_020))
 print(int_to_french(6_000_000_000_000_000_001))
-print(int_to_french(-999999999999999999999999999999999999999999999999999999999))
+print(int_to_french(-999999999999999999999999999999999999999999999999999))
 print(float_to_french(66642.8098409958))
 print(float_to_french(-3.14))
+print(int_to_french(0xAE))
