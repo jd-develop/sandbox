@@ -10,7 +10,19 @@ dizaines = [None, "dix", "vingt", "trente", "quarante", "cinquante", "soixante",
 a_besoin_de_et_pour_un = [None, False, True, True, True, True, True, True, False, False]
 use_plus_dix = [None, False, False, False, False, False, False, True, False, True]
 
-prefixes = ["cent", "mille", "million", "milliard"]
+
+def float_to_french(nombre):
+    assert isinstance(nombre, float)
+    nombre = str(nombre).split(".")
+    int_ = int_to_french(int(nombre[0]))
+    float_ = int_to_french(int(nombre[1]))
+    if float_ != "zéro":
+        if int_.endswith(" "):
+            return int_ + "virgule " + float_
+        else:
+            return int_ + " virgule " + float_
+    else:
+        return int_
 
 
 def int_to_french(nombre, do_not_print_0=False):
@@ -131,3 +143,5 @@ print(int_to_french(23_274_625_000_245_628_000))
 print(int_to_french(3_274_000_000_245_628_020))
 print(int_to_french(6_000_000_000_000_000_001))
 print(int_to_french(-999999999999999999999999999999999999999999999999999999999))
+print(float_to_french(66642.8098409958))
+print(float_to_french(-3.14))
