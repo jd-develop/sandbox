@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 import pprint
-import unicodedata
-import string
+# import unicodedata
+# import string
 import os
+import pathlib
 
 
 def format_correctly(str_: str):
@@ -16,13 +17,13 @@ def make_couple_of_letters_from_sentence(sentence_: list[str]):
     for word in sentence_:
         for pos, letter in enumerate(word):
             if pos + 1 == len(word):
-                if letter in existing_couples:
-                    couples_of_letters_[letter] += 1
+                if letter.lower() in existing_couples:
+                    couples_of_letters_[letter.lower()] += 1
                 else:
-                    couples_of_letters_[letter] = 1
-                    existing_couples.append(letter)
+                    couples_of_letters_[letter.lower()] = 1
+                    existing_couples.append(letter.lower())
             else:
-                couple = letter + word[pos + 1]
+                couple = letter.lower() + word[pos + 1].lower()
                 if couple in existing_couples:
                     couples_of_letters_[couple] += 1
                 else:
@@ -45,7 +46,7 @@ if mode == "i":
     couples_of_letters = make_couple_of_letters_from_sentence(sentence)
     pprint.pprint(couples_of_letters)
 elif mode == "f":
-    path_to_file = os.path.abspath('./file.txt')
+    path_to_file = os.path.abspath(f'{pathlib.Path(__file__).parent.absolute()}/file.txt')
     confirmation = str(input(f"Is the file stored in {path_to_file}? (Y/N): "))
     if confirmation.lower() == "y":
         if os.path.exists(path_to_file):
