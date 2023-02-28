@@ -5,31 +5,47 @@ import pprint
 # import string
 import os
 import pathlib
+import sys
 
 
 def format_correctly(str_: str):
     return str(str_).replace(" ", "\n").splitlines()
 
 
-def make_couple_of_letters_from_sentence(sentence_: list[str]):
-    couples_of_letters_ = {}
-    existing_couples = []
-    for word in sentence_:
+def do_the_math(sentence_: list[str]):
+    print("Analyzing...")
+    groups_of_letters_ = {}
+    existing_groups = []
+    for i, word in enumerate(sentence_):
+        print(f"word {i+1}/{len(sentence)} ({100 * (i+1)/len(sentence)} %)")
         for pos, letter in enumerate(word):
             if pos + 1 == len(word):
-                if letter.lower() in existing_couples:
-                    couples_of_letters_[letter.lower()] += 1
+                if letter.lower() in existing_groups:
+                    groups_of_letters_[letter.lower()] += 1
                 else:
-                    couples_of_letters_[letter.lower()] = 1
-                    existing_couples.append(letter.lower())
+                    groups_of_letters_[letter.lower()] = 1
+                    existing_groups.append(letter.lower())
+            elif pos + 2 == len(word):
+                if letter.lower() + word[pos + 1].lower() in existing_groups:
+                    groups_of_letters_[letter.lower() + word[pos + 1].lower()] += 1
+                else:
+                    groups_of_letters_[letter.lower() + word[pos + 1].lower()] = 1
+                    existing_groups.append(letter.lower() + word[pos + 1].lower())
+            elif pos + 3 == len(word):
+                if letter.lower() + word[pos + 1:pos + 3].lower() in existing_groups:
+                    groups_of_letters_[letter.lower() + word[pos + 1:pos + 3].lower()] += 1
+                else:
+                    groups_of_letters_[letter.lower() + word[pos + 1:pos + 3].lower()] = 1
+                    existing_groups.append(letter.lower() + word[pos + 1:pos + 3].lower())
             else:
-                couple = letter.lower() + word[pos + 1].lower()
-                if couple in existing_couples:
-                    couples_of_letters_[couple] += 1
+                group = letter.lower() + word[pos + 1:pos + 4].lower()
+                if group in existing_groups:
+                    groups_of_letters_[group] += 1
                 else:
-                    couples_of_letters_[couple] = 1
-                    existing_couples.append(couple)
-    return couples_of_letters_
+                    groups_of_letters_[group] = 1
+                    existing_groups.append(group)
+    print("finish")
+    return groups_of_letters_
 
 
 is_mode_given = False
@@ -43,8 +59,7 @@ while not is_mode_given:
 
 if mode == "i":
     sentence = format_correctly(str(input("Please write a sentence: ")))
-    couples_of_letters = make_couple_of_letters_from_sentence(sentence)
-    pprint.pprint(couples_of_letters)
+    groups = do_the_math(sentence)
 elif mode == "f":
     path_to_file = os.path.abspath(f'{pathlib.Path(__file__).parent.absolute()}/file.txt')
     confirmation = str(input(f"Is the file stored in {path_to_file}? (Y/N): "))
@@ -53,9 +68,18 @@ elif mode == "f":
             with open(path_to_file, encoding='UTF-8') as file:
                 sentence = format_correctly(file.read())
                 file.close()
-            couples_of_letters = make_couple_of_letters_from_sentence(sentence)
-            pprint.pprint(couples_of_letters)
+            groups = do_the_math(sentence)
         else:
             print("The file doesn't exist...")
+            sys.exit()
     else:
         print("OK. Please put the file in the path below and try again! :)")
+        sys.exit()
+
+print("formatting...")
+value = pprint.pformat(groups)
+path_ = os.path.abspath(f'{pathlib.Path(__file__).parent.absolute()}/output.txt')
+print(f"dumping into {path_}...")
+with open(path_, 'w+', encoding="UTF-8") as f:
+    f.write(value)
+print(f"The dictionnary is in {path_}")
