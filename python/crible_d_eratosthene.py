@@ -1,6 +1,6 @@
 def criblederatostene(x=100):
     assert x >= 3
-    nombres = [i for i in range(2, x)]
+    nombres = list(range(2, x))
     nombresPremiers = []
     while len(nombres) != 0:
         p = nombres.pop(0)
