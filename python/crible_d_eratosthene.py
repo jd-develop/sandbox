@@ -1,14 +1,14 @@
-def criblederatostene(x=100):
+def sieve_of_eratosthenes(x=100):
     assert x >= 3
     nombres = list(range(2, x))
-    nombresPremiers = []
+    nombres_premiers = []
     while len(nombres) != 0:
         p = nombres.pop(0)
-        nombresPremiers.append(p)
+        nombres_premiers.append(p)
         for i, nombre in enumerate(nombres):
-            if nombre%p == 0:
+            if nombre % p == 0:
                 nombres.pop(i)
-    return nombresPremiers
+    return nombres_premiers
 
 
-print(criblederatostene(1000))
+print(sieve_of_eratosthenes(1000))

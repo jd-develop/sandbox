@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # coding:utf-8
-
 import datetime
 
 reveal_date = datetime.date(2019, 2, 14)
@@ -13,4 +12,3 @@ probability = 100/delta
 
 print(f"Cela fait {(today-reveal_date).days} jours que Hollow Knight: Silksong a été annoncé.")
 print(f"Il y a une chance sur {delta} que Hollow Knight: Silksong sorte demain, soit {probability}% de probabilité.")
-
