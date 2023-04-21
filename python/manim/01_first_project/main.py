@@ -26,8 +26,9 @@ class HelloWorld(Scene):
         self.play(FadeIn(text))
         self.play(Transform(text, circle))
         self.play(Transform(text, square))
-        self.play(Transform(text, Text("Look at those squares!")))
+        self.play(Transform(text, Text("wow!")))
         self.play(FadeOut(text))
+        self.wait()
 
 
 class SquareAndCircle(Scene):
