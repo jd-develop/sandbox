@@ -1,9 +1,11 @@
+# this is dirty coded to make useless but funny things
+
 text = input("texte: ")
 
 hex_ = bytes(text, "UTF-8").hex()
 
 final_str = ""
-for loop in range(10):
+for loop in range(1):
     # encode
     final_str = ""
     actual_hex = ""
@@ -28,7 +30,7 @@ print(final_str)
 
 input_decode = final_str
 output = ""
-for loop in range(10):
+for loop in range(1):
     # decode
     for char in input_decode:
         ord_hex = hex(ord(char))[2:]

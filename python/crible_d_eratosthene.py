@@ -1,3 +1,5 @@
+# coding:utf-8
+
 def sieve_of_eratosthenes(x=100):
     assert x >= 3
     nombres = list(range(2, x))

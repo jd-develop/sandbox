@@ -11,4 +11,5 @@ delta = (june12-today).days
 probability = 100/delta
 
 print(f"Cela fait {(today-reveal_date).days} jours que Hollow Knight: Silksong a été annoncé.")
+print("Il a été annoncé que Hollow Knight: Silksong sortira avant le 12 juin 2023 inclus.")
 print(f"Il y a une chance sur {delta} que Hollow Knight: Silksong sorte demain, soit {probability}% de probabilité.")
