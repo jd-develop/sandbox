@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # coding:utf-8
 # Enter a number, you have the French transcription!
+import traceback
 
 chiffres = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze",
             "treize", "quatorze", "quinze", "seize"]
@@ -12,21 +13,61 @@ use_plus_dix = [None, False, False, False, False, False, False, True, False, Tru
 
 
 def float_to_french(nombre):
-    assert isinstance(nombre, float)
+    assert isinstance(nombre, float), f"nombre {nombre} is not float"
     nombre = str(nombre).split(".")
+    if len(nombre) == 1:  # float without a '.': number like XeY
+        nombre = nombre[0].split('e')
+        if len(nombre) == 1:
+            raise TypeError(f"your number seems weird, it is {nombre}")
+        mantisse = float_to_french(float(nombre[0]))
+        exposant = int_to_french(int(nombre[1]))
+        if mantisse.endswith(" "):
+            return mantisse + "fois dix exposant " + exposant
+        else:
+            return mantisse + " fois dix exposant " + exposant
+    elif 'e' in nombre[1]:
+        mantisse_int_ = nombre[0]
+        mantisse_float_and_exposant = nombre[1].split('e')
+        mantisse_float_ = mantisse_float_and_exposant[0]
+        exposant = mantisse_float_and_exposant[1]
+        mantisse_int_ = int_to_french(int(mantisse_int_))
+        zeros = 0
+        while mantisse_float_.startswith("0"):
+            zeros += 1
+            mantisse_float_ = mantisse_float_[1:]
+        if mantisse_float_ == "":
+            mantisse_float_ = "zéro"
+            zeros = 0
+        else:
+            mantisse_float_ = int_to_french(int(mantisse_float_))
+        exposant = int_to_french(int(exposant))
+        return mantisse_int_ + " "*int(not mantisse_int_.endswith(" ")) + "virgule " + zeros*"zéro " + mantisse_float_\
+            + " "*int(not mantisse_float_.endswith(" ")) + "fois dix exposant " + exposant
+
+    zeros = 0
+    while nombre[1].startswith("0"):
+        zeros += 1
+        nombre[1] = nombre[1][1:]
+
     int_ = int_to_french(int(nombre[0]))
-    float_ = int_to_french(int(nombre[1]))
+
+    if nombre[1] == "":
+        float_ = "zéro"
+        zeros = 0
+    else:
+        float_ = int_to_french(int(nombre[1]))
+        
     if float_ != "zéro":
         if int_.endswith(" "):
-            return int_ + "virgule " + float_
+            return int_ + "virgule " + "zéro "*zeros + float_
         else:
-            return int_ + " virgule " + float_
+            return int_ + " virgule " + "zéro "*zeros + float_
     else:
         return int_
 
 
 def int_to_french(nombre, do_not_print_0=False):
-    assert isinstance(nombre, int)
+    assert isinstance(nombre, int), f"nombre {nombre} is not int"
 
     nombre = str(nombre)
     result = ""
@@ -139,14 +180,50 @@ def int_to_french(nombre, do_not_print_0=False):
         return result
 
 
-for n in range(-1500, 1500):
-    print(int_to_french(n))
+# for n in range(-1500, 1500):
+#     print(int_to_french(n))
+# 
+# print(int_to_french(1_274_625))
+# print(int_to_french(23_274_625_000_245_628_000))
+# print(int_to_french(3_274_000_000_245_628_020))
+# print(int_to_french(6_000_000_000_000_000_001))
+# print(int_to_french(-999999999999999999999999999999999999999999999999999))
+# print(float_to_french(66642.8098409958))
+# print(float_to_french(-3.14))
+# print(int_to_french(0xAE))
+# print(int_to_french(64000000))
 
-print(int_to_french(1_274_625))
-print(int_to_french(23_274_625_000_245_628_000))
-print(int_to_french(3_274_000_000_245_628_020))
-print(int_to_french(6_000_000_000_000_000_001))
-print(int_to_french(-999999999999999999999999999999999999999999999999999))
-print(float_to_french(66642.8098409958))
-print(float_to_french(-3.14))
-print(int_to_french(0xAE))
+
+print("Enter 'exit' to exit.")
+loop = True
+while loop:
+    num: str = input("Enter a number: ")
+    if num == "exit":
+        break
+    error = False
+    if num.lstrip('-').isdigit() and '.' not in num:
+        num: int = int(num)
+    elif set(num.lstrip('-')) <= set("0123456789."):
+        if num.count(".") <= 1:
+            num: float = float(num)
+        else:
+            print("Error : you didn't entered a valid number")
+            error = True
+    else:
+        print("Error : you didn't entered a valid number")
+        error = True
+    
+    if error:
+        continue
+    elif isinstance(num, int):
+        try:
+            print(int_to_french(num))
+        except Exception as e:
+            # raise e
+            print(traceback.print_exc())
+    else:
+        try:
+            print(float_to_french(num))
+        except Exception as e:
+            # raise e
+            print(traceback.print_exc())
