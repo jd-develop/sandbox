@@ -7,7 +7,9 @@ SQ_SIZE = 20
 SQ_SHIFT = 10
 offset = time.timezone if (time.localtime().tm_isdst == 0) else time.altzone
 offset *= -1
-week = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+# a = int(time.time())
+# target = int("1" + "0"*40, 2) - 60
 
 
 def setup():
@@ -19,6 +21,7 @@ def setup():
 def draw():
     py5.background(0)
     py5.fill(255)
+    # u_time_int = int(time.time()) + target - a 
     u_time_int = int(time.time())
     unix_time_bin = bin(u_time_int)[2:]
     py5.text(f"Current Unix Time is {len(unix_time_bin)} bits long. It is:", 10, 20)
