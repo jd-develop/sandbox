@@ -93,6 +93,8 @@ def draw():
     offset_minutes = offset/60
     offset_hours = offset_minutes // 60
     offset_minutes = offset_minutes % 60
+    if offset_hours < 0 and offset_minutes != 0:
+        offset_hours += 1
     sign = '+' if offset_hours >= 0 else '-'
 
     if offset_minutes == 0 and offset_hours == 0:
