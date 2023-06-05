@@ -24,30 +24,37 @@ def raw_list_to_candidate_by_candidate_dict(raw_list: list[dict]) -> dict:
 
 
 def raw_list_to_mandat_by_mandat_dict(raw_list: list[dict]) -> dict:
-    """Returns a dict which every key is a mandat and every value is the parrainages given by people exercing this mandat."""
+    """Returns a dict in which every key is a mandat and every value is the parrainages given by people exercising this
+    mandat."""
     mandat_by_mandat_dict = {}
     for parrainage in raw_list:
         mandat = parrainage["Mandat"]
         mandat = mandat.replace("Conseiller", "Conseiller.e").replace("Conseillère", "Conseiller.e")
         mandat = mandat.replace("Sénateur", "Sénateur.trice").replace("Sénatrice", "Sénateur.trice")
+
+        if "métropolitaine" in mandat:
+            mandat = mandat.replace("métropolitaine", "métropolitain.e")
+        elif "métropolitain" in mandat and "métropolitain.e" not in mandat:
+            mandat = mandat.replace("métropolitain", "métropolitain.e")
+
         if "Députée" in mandat:
             mandat = mandat.replace("Députée", "Député.e")
-        elif "Député" in mandat and not "Député.e" in mandat:
+        elif "Député" in mandat and "Député.e" not in mandat:
             mandat = mandat.replace("Député", "Député.e")
 
         if "Maire déléguée" in mandat:
             mandat = mandat.replace("Maire déléguée", "Maire délégué.e")
-        elif "Maire délégué" in mandat and not "Maire délégué.e" in mandat:
+        elif "Maire délégué" in mandat and "Maire délégué.e" not in mandat:
             mandat = mandat.replace("Maire délégué", "Maire délégué.e")
 
         if "Présidente" in mandat:
             mandat = mandat.replace("Présidente", "Président.e")
-        elif "Président" in mandat and not "Président.e" in mandat:
+        elif "Président" in mandat and "Président.e" not in mandat:
             mandat = mandat.replace("Président", "Président.e")
 
         if "Représentante française" in mandat:
             mandat = mandat.replace("Représentante française", "Représentant.e français.e")
-        elif "Représentant français" in mandat and not "Représentant.e français.e" in mandat:
+        elif "Représentant français" in mandat and "Représentant.e français.e" not in mandat:
             mandat = mandat.replace("Représentant français", "Représentant.e français.e")
         
         try:
@@ -84,6 +91,7 @@ def generate_html(candidate_by_candidate_dict: dict, mandat_by_mandat_dict: dict
 
     for candidate in sorted(candidate_by_candidate_dict.keys()):  # sorted in alphanumeric order.
         html += f"\t<tr>\n\t\t<td>{candidate}</td>\n\t\t<td>{candidate_by_candidate_dict[candidate]}</td>\n\t</tr>\n"
+    html += f"\t<tr>\n\t\t<td>TOTAL</td>\n\t\t<td>{sum(candidate_by_candidate_dict.values())}"
 
     html += "</table>\n" \
             "<h2 id=\"mandatbymandat\">Amount of parrainages by mandate type</h2>\n" \
@@ -91,6 +99,7 @@ def generate_html(candidate_by_candidate_dict: dict, mandat_by_mandat_dict: dict
 
     for mandat in sorted(mandat_by_mandat_dict.keys()):
         html += f"\t<tr>\n\t\t<td>{mandat}</td>\n\t\t<td>{mandat_by_mandat_dict[mandat]}</td>\n\t</tr>\n"
+    html += f"\t<tr>\n\t\t<td>TOTAL</td>\n\t\t<td>{sum(mandat_by_mandat_dict.values())}"
 
     html += "</table>\n</body>\n</html>\n"
     return html

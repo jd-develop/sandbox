@@ -1,4 +1,4 @@
-# this is dirty coded to make useless but funny things
+# this is dirty code to make useless but funny things
 
 text = input("texte: ")
 
