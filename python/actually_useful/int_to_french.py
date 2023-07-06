@@ -202,10 +202,18 @@ while loop:
         break
     error = False
     if num.lstrip('-').isdigit() and '.' not in num:
-        num: int = int(num)
+        try:
+            num: int = int(num)
+        except ValueError as e:
+            print(f"Error : you didn't entered a valid number (ValueError: {e})")
+            error = True
     elif set(num.lstrip('-')) <= set("0123456789."):
         if num.count(".") <= 1:
-            num: float = float(num)
+            try:
+                num: float = float(num)
+            except ValueError as e:
+                print(f"Error : you didn't entered a valid number (ValueError: {e})")
+                error = True
         else:
             print("Error : you didn't entered a valid number")
             error = True
