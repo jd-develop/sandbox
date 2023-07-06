@@ -11,7 +11,7 @@ print("Converting to int...", end=" ")
 loop_on_421 = [int(n) for n in loop_on_421]
 print("Done.")
 
-for i in range(100000, 105000):
+for i in range(105000, 200000):
     if i in loop_on_421:
         print(f"Continue for {i}...")
         continue

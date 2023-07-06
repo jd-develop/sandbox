@@ -3,7 +3,7 @@ import pprint
 l_ = ["1"]
 
 loop = int(input("How many terms should be calculated?\nIt starts being slow around ~40/50 and completely filling the "
-                 "Ubuntu terminal app at 45.\nRecommended value: 44.\n>"))
+                 "Gnome terminal app at 45.\nRecommended value: 44.\n>"))
 
 for i in range(loop):
     a = l_[-1]

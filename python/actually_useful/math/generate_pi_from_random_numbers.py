@@ -38,4 +38,4 @@ print(f"{co_primes/total=}, 6/(π²)={6/(math.pi**2)}")
 print()
 
 pi = math.sqrt(total*6/co_primes)
-print(f"We found π={pi}.\nThe real π={math.pi}")
+print(f"We found π={pi}.\nThe real π={math.pi}.")
