@@ -4,8 +4,8 @@ from manim import *
 
 class Sqrt2IsIrrational(Scene):
     def construct(self):
-        main_text = Tex("Supposons ", r"$\sqrt{2}$", " rationnel.")
-        text1 = Tex(r"$\sqrt{2} = \frac{a}{b}$; $a, b \in \mathbb{N}$; $\frac{a}{b}$ la fraction la plus simplifiée.")
+        main_text = Tex("Supposons que ", r"$\sqrt{2} \in \mathbb{Q}$")
+        text1 = MathTex(r"\sqrt{2} = \frac{a}{b}; (a, b) \in \mathbb{N}^2; {a} \wedge {b} = 1.")
 
         text2 = MathTex(r"\sqrt{2} = \frac{a}{b}")
         text3 = MathTex(r"\frac{a^2}{b^2} = 2")
@@ -21,9 +21,9 @@ class Sqrt2IsIrrational(Scene):
         text12 = Tex("$b$ est donc pair.")
 
         text13 = MathTex(r"\sqrt{2} = \frac{a}{b}")
-        text14 = Tex(r"$\sqrt{2} = \frac{a}{b}$; a et b divisibles par 2.")
+        text14 = MathTex(r"\sqrt{2} = \frac{a}{b}; a \wedge b \geq 2")
         text15 = Tex(r"La fraction ", r"$\frac{a}{b}$", " supposée simplifiée ne l’est en fait pas.")
-        text16 = Tex(r"Le raisonnement ne tient pas, ", r"$\sqrt{2}$ est irrationnel.")
+        text16 = Tex(r"Le raisonnement ne tient pas, ", r"$\sqrt{2} \not\in \mathbb{Q}$.")
         rect = SurroundingRectangle(text16[1])
         self.play(Create(main_text))
         self.play(Wait(2))
