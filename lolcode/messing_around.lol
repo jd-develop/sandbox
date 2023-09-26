@@ -10,6 +10,7 @@ VISIBLE SECOND_VARIABLE
 I HAS A a ITZ 1
 I HAS A b ITZ 2
 
+BTW inverting 2 variables
 a R SUM OF a AN b
 b R DIFF OF a AN b
 a R DIFF OF a AN b
