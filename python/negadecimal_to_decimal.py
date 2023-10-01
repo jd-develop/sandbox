@@ -1,5 +1,6 @@
 # coding:utf-8
 import random
+# WORK IN PROGRESS
 
 
 def negadecimal_to_decimal(negadecimal: int):
