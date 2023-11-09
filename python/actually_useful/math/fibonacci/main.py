@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 # coding:utf-8
-# Fibonnachi2
+# Fibonacci
 
 
-def fib(n):
-    """ Calcule tout les nombres de la suite de Fibonnacci inférieurs à `n` """
+def fib(n_):
+    """ Calcule tous les nombres de la suite de Fibonacci inférieurs à `n` """
     a, b = 0, 1
-    fibFile = open("output.out", "w")
-    while a < n:
+    fib_file = open("output.out", "w")
+    while a < n_:
         print(a)
-        fibFile.write(f'-  {a}\n')
+        fib_file.write(f'{a}\n')
         a, b = b, a+b
 
 
 n = 0
-mode = str(input("*** CHOIX DU MODE D'ENTRÉE DU NOMBRE JUSQU'AUQUEL CE PROGRAMME CALCULE LA SUITE DE FIBONNACCI ***\n"
+mode = str(input("*** CHOIX DU MODE D'ENTRÉE DU NOMBRE JUSQU'AUQUEL CE PROGRAMME CALCULE LA SUITE DE FIBONACCI ***\n"
                  "'ne' : nombre/exposant\n"
                  "'nm' : nombre/multiplicateur\n"
                  "'ns' : nombre simple\n"

@@ -38,26 +38,26 @@ def ask():
 
 ask = ask()
 toDoTimes = ask[1]
-modeChoosed = ask[0]
+chooseMode = ask[0]
 
-if modeChoosed == "v" and toDoTimes > 100000:
+if chooseMode == "v" and toDoTimes > 100000:
     print("Calcul en cours, veuillez patienter...")
 
 if toDoTimes > 0:
     if toDoTimes >= 1:
         actuallyTimes += 1
-        if modeChoosed == "t":
+        if chooseMode == "t":
             print(actuallyTimes, ": ", a)
     if toDoTimes >= 2:
         actuallyTimes += 1
-        if modeChoosed == "t":
+        if chooseMode == "t":
             print(actuallyTimes, ": ", b)
 
     for loop in range(toDoTimes - 2):
         try:
             actuallyTimes += 1
             number = a + b
-            if modeChoosed == "t":
+            if chooseMode == "t":
                 print(actuallyTimes, ": ", number)
             b = a
             a = number
@@ -65,7 +65,7 @@ if toDoTimes > 0:
             print("\nProgramme terminé")
             quit(0)
 
-    if modeChoosed == "v":
+    if chooseMode == "v":
         print(actuallyTimes, ": ", number)
 else:
     print("Le nombre de valeurs à calculer doit être strictement supérieur à 0.")
