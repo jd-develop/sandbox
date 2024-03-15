@@ -26,6 +26,7 @@ def setup():
     py5.stroke(0)
     py5.circle(250, 250, 500*R*2)
     py5.stroke(0, 0, 255)
+    py5.frame_rate(99999999999)
 
 
 def draw():
@@ -44,7 +45,7 @@ def draw():
         py5.rect(0, 500, 500, 20)
         py5.fill(0)
         pi_estimation = (R**2 * total_points * 10) / (L**2 * in_points)
-        print(pi_estimation)
+        # print(pi_estimation)
         py5.text(f"π ≈ {str(pi_estimation)}", 10, 515)
         py5.text("π = 3.141592653589793", 300, 515)
 
