@@ -27,15 +27,13 @@ def setup():
     n = int(py5.width / cellSize)
     p = int(py5.height / cellSize)
 
+    # Initialisation de la taille du texte
+    py5.text_size(20)
+
     # Initialisation des grilles courante et temporaire
     init_grids("empty")
     # Affichage initial de la grille
     display_grid()
-
-    py5.text_size(20)
-    py5.fill(255)
-    py5.text("gen: " + str(gen), 0, 20)
-    py5.fill(0)
 
 
 def draw():
@@ -45,10 +43,6 @@ def draw():
         # Afficher la grille
         display_grid()
 
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
-
 
 def mouse_pressed():
     if py5.mouse_button == py5.LEFT:
@@ -56,10 +50,6 @@ def mouse_pressed():
         init_grids()
         # Afficher la grille
         display_grid()
-
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     else:
         global currentGrid
         # changer l'état d'une cellule
@@ -73,9 +63,6 @@ def mouse_pressed():
                 currentGrid[cell_x][cell_y] = alive
             # Afficher la grille
             display_grid()
-            py5.fill(255)
-            py5.text("gen: " + str(gen), 0, 20)
-            py5.fill(0)
         except IndexError:
             pass
 
@@ -91,10 +78,6 @@ def key_pressed():
         update_grids()
         # Afficher la grille
         display_grid()
-
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key_code == py5.UP:
         frame_rate_ += 5
         py5.frame_rate(frame_rate_)
@@ -106,60 +89,33 @@ def key_pressed():
     elif py5.key == 'r':
         init_grids("random")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 'b':
         init_grids("blinker")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 't':
         init_grids("tub")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 's':
         init_grids("ship")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 'g':
         init_grids("glider")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 'u':
         init_grids("glider_gun")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 'd':
         init_grids("the_4812_diamond")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == 'e':
         init_grids("random_more")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
     elif py5.key == "p":
         init_grids("space_ship")
         display_grid()
-        py5.fill(255)
-        py5.text("gen: " + str(gen), 0, 20)
-        py5.fill(0)
 
 
-def init_grids(which_grid="empty"):
+def init_grids(which_grid: str = "empty"):
     """
     La fonction init_grids initialise les grilles courantes currentGrid et temporaire tempGrid.
     Les grilles sont codées par des listes de colonnes, par cohérence avec l'abscisse x en colonne et l'ordonnée y en 
@@ -231,21 +187,21 @@ def init_grids(which_grid="empty"):
     elif which_grid == "space_ship":
         chosen_grid = space_ship
     elif which_grid == "random_more":
-        currentGrid = [[randint(1, 5) // 5 for y in range(p)] for x in range(n)]
+        currentGrid = [[randint(1, 5) // 5 for _ in range(p)] for _ in range(n)]
         adapt_to_screen = False
     else:
-        currentGrid = [[randint(1, 12) // 12 for y in range(p)] for x in range(n)]
+        currentGrid = [[randint(1, 12) // 12 for _ in range(p)] for _ in range(n)]
         adapt_to_screen = False
 
     if adapt_to_screen:
-        chosen_grid2 = [[0 for y in range(p)] for x in range(n)]
+        chosen_grid2 = [[0 for _ in range(p)] for _ in range(n)]
         for i, line_ in enumerate(chosen_grid):
             for j, cell_ in enumerate(line_):
                 chosen_grid2[j + int(n / 2) - int(len(line_) / 2)][i + int(p / 2) - int(len(chosen_grid) / 2)] = cell_
         currentGrid = chosen_grid2
 
     # initialise la grille temporaire avec des zéros
-    tempGrid = [[0 for y in range(p)] for x in range(n)]
+    tempGrid = [[0 for _ in range(p)] for _ in range(n)]
     gen = 0
 
 
@@ -263,6 +219,10 @@ def display_grid():
                 py5.fill(0)
             # Tracer la cellule carrée de taille cellSize et de cordonnées (x*cellSize; y*cellSize)
             py5.square(x * cellSize, y * cellSize, cellSize)
+    
+    py5.fill(255)
+    py5.text("gen: " + str(gen), 0, 20)
+    py5.fill(0)
 
 
 def update_grids():
@@ -300,7 +260,7 @@ def update_grids():
     gen += 1
 
 
-def alive_neighbors(current_grid, x, y):
+def alive_neighbors(current_grid: list[list[int]], x: int, y: int):
     """
     Calcule et retourne le nombre de voisins vivants de la cellule de coordonnées (x;y).
     Doit tenir compte du voisinage
