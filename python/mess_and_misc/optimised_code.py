@@ -193,4 +193,5 @@ def call_func(func, *args, **kwargs):
         .__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__ \
         .__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__ \
         .__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__ \
+        .__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__.__call__ \
         .__call__(*args, **kwargs)
