@@ -1,41 +1,29 @@
+#!/usr/bin/env python3
 # coding:utf-8
-import random
-# WORK IN PROGRESS
-
 
 def negadecimal_to_decimal(negadecimal: int):
     assert negadecimal >= 0, "negadecimal values can’t be negative…"
-    negadecimal = str(negadecimal)
+    negadecimal_str = str(negadecimal)
     decimal = 0
-    for i in range(1, len(negadecimal)+1):
-        decimal += (-10)**(i-1) * int(negadecimal[-i])
+    for i in range(1, len(negadecimal_str)+1):
+        decimal += (-10)**(i-1) * int(negadecimal_str[-i])
     return decimal
 
 
-def decimal_to_negadecimal(decimal: int):
-    # todo recoder avec des listes
-    is_negative = decimal < 0
-    decimal = str(decimal)
-    if is_negative:
-        decimal = decimal[1:]
+def decimal_to_negadecimal(decimal_int: int):
+    digits: list[int] = []
+    while decimal_int != 0:
+        r = decimal_int % (-10)
+        decimal_int //= (-10)
+        if r < 0:
+            r += 10
+            decimal_int += 1
+        digits.append(r)
     negadecimal = 0
-    for i in range(1, len(decimal)+1):
-        if is_negative:
-            if (-10)**(i-1) > 0 and int(decimal[-i]) != 0:
-                negadecimal += (20-int(decimal[-i])) * 10**(i-1)
-            else:
-                if len(str(negadecimal + 10**(i-1)*int(decimal[-i]))) > len(str(negadecimal)):
-                    negadecimal += 10**(i-1)*int(decimal[-i])
-                    # print(negadecimal)
-                    negadecimal += (200 - negadecimal//(10**(i-1)))*10**(i-1)
-                else:
-                    negadecimal += 10**(i-1) * int(decimal[-i])
-        else:
-            if (-10)**(i-1) > 0:
-                negadecimal += 10**(i-1) * int(decimal[-i])
-            else:
-                negadecimal += (20-int(decimal[-i])) * 10**(i-1)
+    for i in range(len(digits)):
+        negadecimal += (10)**i * digits[i]
     return negadecimal
+
 
 
 print(negadecimal_to_decimal(1901))
