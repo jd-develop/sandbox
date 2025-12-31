@@ -88,9 +88,9 @@ def draw():
 
     py5.text_size(100)
     py5.text(f"{week[day_in_week]} "
-             f"{'0' if len(str(days)) == 1 else ''}{days}/"
-             f"{'0' if len(str(month)) == 1 else ''}{month}/"
-             f"{year} "
+             f"{year}-"
+             f"{'0' if len(str(month)) == 1 else ''}{month}-"
+             f"{'0' if len(str(days)) == 1 else ''}{days} "
              f"{'0' if len(str(hours)) == 1 else ''}{hours}:"
              f"{'0' if len(str(minutes)) == 1 else ''}{minutes}:"
              f"{'0' if len(str(seconds)) == 1 else ''}{seconds}", 50, 250)
