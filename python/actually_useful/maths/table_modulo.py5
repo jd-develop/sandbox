@@ -18,6 +18,19 @@ counter = 0  # DON'T TOUCH
 first = True
 second = False
 fps = 0
+center_x, center_y = 250, 250
+radius = 225
+
+
+def update_origins_of_lines():
+    global angle, origins_of_lines
+    angle = 2*math.pi / modulo
+    origins_of_lines = [
+        (i,
+         center_x + radius*math.cos(angle*i - math.tau/4),
+         center_y + radius*math.sin(angle*i - math.tau/4))
+        for i in range(modulo)
+    ]
 
 
 def setup():
@@ -26,6 +39,7 @@ def setup():
     py5.text_size(20)
     py5.fill(255)
     py5.stroke(0)
+    update_origins_of_lines()
 
 
 def draw():
@@ -45,7 +59,7 @@ def draw():
     if second:
         second = False
         time.sleep(5)
-        start_time = time.time()
+        current_time = time.time()
 
     py5.fill(0)
     table_to_display = int(table) + round(float(table)-int(table), abs(math.floor(math.log10(change_by))))
@@ -53,17 +67,12 @@ def draw():
     py5.text(str(counter), 10, py5.height - 20)
     py5.text(str(fps), py5.width - 40, py5.height - 20)
 
-    center_x, center_y = 250, 250
-    radius = 225
-    angle = 2*math.pi / modulo
-
     py5.fill(255)
     py5.circle(center_x, center_y, radius*2)
 
-    for i in range(modulo):
+    for i, x0, y0 in origins_of_lines:
         py5.line(
-            center_x + (radius * math.cos(angle*i - math.pi/2)),
-            center_y + (radius * math.sin(angle*i - math.pi/2)),
+            x0, y0,
             center_x + (radius * math.cos(angle*((i*table) % modulo) - math.pi/2)),
             center_y + (radius * math.sin(angle*((i*table) % modulo) - math.pi/2))
         )
@@ -74,14 +83,17 @@ def draw():
     elif counter % change_every == 0:
         if what_to_change == "modulo":
             modulo += change_by
+            update_origins_of_lines()
         elif what_to_change == "table":
             table += change_by
         elif what_to_change == "module et table":
             table += change_by
             modulo += change_by_modulo
+            update_origins_of_lines()
 
     if py5.is_key_pressed and py5.key == "m":
         modulo += change_by_modulo
+        update_origins_of_lines()
         time.sleep(0.1)
     if py5.is_key_pressed and py5.key == "t":
         table += 1
