@@ -9,6 +9,7 @@
 # HOW TO UPDATE THIS PROGRAM IF A LEAP SECOND IS ADDED?
 # --> Simply add 1 to the LEAP_SECONDS constant
 # Note: at the time of writting, last leap second was E2016-12-31T23:59:60Z
+# Note: last updated: 2026-01-06 (Bulletin C no. 71)
 
 import time
 
