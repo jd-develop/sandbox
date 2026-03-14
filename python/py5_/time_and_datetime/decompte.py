@@ -78,19 +78,17 @@ def draw():
         offset_str = f"{sign}{abs(int(offset_hours))}"
     else:
         offset_str = f"{sign}{abs(int(offset_hours))}h{abs(int(offset_minutes))}"
-    
+
     year = datetime.now().year
     next_new_year = datetime(year+1, 1, 1, 0, 0, 0)
     delta = next_new_year - datetime.now()
-    delta_seconds = delta.seconds + 1
-    if delta_seconds < 60:
-        print("\a")
+    delta_seconds = int(delta.total_seconds()) + 1
 
     py5.text_size(100)
     py5.text(f"{week[day_in_week]} "
-             f"{'0' if len(str(days)) == 1 else ''}{days}/"
-             f"{'0' if len(str(month)) == 1 else ''}{month}/"
-             f"{year} "
+             f"{year}-"
+             f"{'0' if len(str(month)) == 1 else ''}{month}-"
+             f"{'0' if len(str(days)) == 1 else ''}{days} "
              f"{'0' if len(str(hours)) == 1 else ''}{hours}:"
              f"{'0' if len(str(minutes)) == 1 else ''}{minutes}:"
              f"{'0' if len(str(seconds)) == 1 else ''}{seconds}", 50, 250)
