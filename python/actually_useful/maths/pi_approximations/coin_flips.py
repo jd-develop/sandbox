@@ -3,7 +3,7 @@
 # This software is licensed under the WTFPL
 """
 Turns out if you flip a coin until you get more heads than tails, the expectancy
-of 4heads/tails is π!
+of 4heads/(total flips) is π!
 """
 import random
 
